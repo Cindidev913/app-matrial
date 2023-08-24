@@ -1,0 +1,67 @@
+@extends('layouts.app')
+
+@section('content')
+<!doctype html>
+<html>
+    <head>
+        
+        <title>Penjualan</title>
+    </head>
+    <body>
+        <div class="container">
+        
+        <div class="col-sm-7">
+            <div class="card bg-secondary text-white mt-5">
+                <div class="card-header text-center">
+                    <h5>Edit Penjualan</h5>
+                </div>
+                <div class="card-body">
+                    <br/>
+                    
+                    <form method="post" action="{{ route('penjualan.update', $penjualan->id_penjualan) }}">
+ 
+                        {{ csrf_field() }}
+                        @method('PUT')
+                        <input class="" type="number" name="id_penjualan" value="{{ old('id_penjualan', @$penjualan->id_penjualan) }}" hidden>
+                        <div class="form-group">
+                            <label for="nama_pembeli" class="form-label">Nama Pembeli</label>
+                            <input class="form-control" type="text" name="nama_pembeli" value="{{ old('nama_pembeli', @$penjualan->nama_pembeli) }}" placeholder="Nama Pembeli" >
+                        </div>
+                        <div class="form-group">
+                            <label for="id_barang" class="form-label">Nama Barang</label>
+                            <select class="form-select" name="id_barang" id="id_barang">
+                            @foreach($c_bar as $bar)
+                                <option value="{{$bar->id_barang}}">{{$bar->nama_barang}}</option>
+                            @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="jumlah" class="form-label">Jumlah</label>
+                            <input class="form-control" type="number" name="jumlah" value="{{ old('jumlah', @$penjualan->jumlah) }}" placeholder="Jumlah Beli">
+                        </div>
+                        <!-- <div class="form-group">
+                            <label>Total</label>
+                            <input class="form-control" type="number" name="total_harga" value="{{ old('total_harga', @$penjualan->total_harga) }}" placeholder="Harga" >
+                        </div> -->
+                        <input name="tanggal" type="timestamp" value="<?php echo date('Y-m-d H:i:s'); ?>" hidden/>
+                        <div class="form-group">
+                            <label for="keterangan" class="form-label">Keterangan</label>
+                            <input class="form-control" type="text" name="keterangan" value="{{ old('keterangan', @$penjualan->keterangan) }}" placeholder="Keterangan (Opsional)" >
+                        </div>
+                        <div class="form-group">
+                            <label for="status" class="form-label">Status</label>
+                            <input class="form-control" type="text" name="status" value="{{ old('status', @$penjualan->status) }}" placeholder="Status (Opsional)" >
+                        </div>
+                        <div class="form-group mt-3">
+                        <button type="submit" class="btn btn-danger me-2">Simpan</button>
+                        <a href="{{ route('penjualan.index') }}" class="btn btn-success">Batal</a>
+                    </div>
+ 
+                    </form>
+ 
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
+@endsection
